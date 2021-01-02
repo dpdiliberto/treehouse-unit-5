@@ -74,9 +74,8 @@ fetchData('https://randomuser.me/api/?nat=us&results=12')
 
         // Add modal interactivity
         modalContainer.addEventListener('click', (e) => {
-            
             // Close the modal if close button is pressed
-            if (e.target.className === 'modal-close-btn') {
+            if (e.target.className === 'modal-close-btn' || e.target.textContent === 'X') {
                 modalContainer.style.display = 'none';
 
                 modalInfoContainer = document.querySelector('.modal-info-container');
