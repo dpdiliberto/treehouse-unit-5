@@ -160,7 +160,6 @@ function getClickedUser(e, dataArray) {
 }
 
 /* Determines the previous user and updates the 'selectedUser'
- *
  * @param {array} dataArray The array that the user cards reflect
  * @return {object} selectedUser The previous user
  */
