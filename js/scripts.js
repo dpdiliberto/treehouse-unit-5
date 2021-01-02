@@ -145,7 +145,6 @@ function removeCards() {
 }
 
 /* Determines which user in the array was clicked based on the selected card
- *
  * @param {event} e The click event
  * @param {array} dataArray The array that the user cards reflect
  * @return {object} selectedUser The clicked user 
@@ -167,6 +166,7 @@ function getClickedUser(e, dataArray) {
  * @param {array} dataArray The array that the user cards reflect
  * @return {object} selectedUser The previous user
  */
+
 function getPreviousUser(dataArray) {
     clickIndex = parseInt(clickIndex) - 1;
     selectedUser = dataArray[clickIndex];
@@ -174,10 +174,10 @@ function getPreviousUser(dataArray) {
 }
 
 /* Determines the next user and updates the 'selectedUser'
- *
  * @param {array} dataArray The array that the user cards reflect
  * @return {object} selectedUser The next user
  */
+
 function getNextUser(dataArray) {
     clickIndex = parseInt(clickIndex) + 1;
     selectedUser = dataArray[clickIndex];
@@ -185,10 +185,10 @@ function getNextUser(dataArray) {
 }
 
 /* Toggles the user by creating a new modal with the 'selectedUser'
- *
  * @param {function} callback The function that determines who the 'selectedUser' is
  * @param {object} selectedUser The array that the user cards reflect
  */
+
 function toggleUser(callback, dataArray) {
     modalInfoContainer = document.querySelector('.modal-info-container');
     modalInfoContainer.remove();
@@ -216,9 +216,9 @@ function initializeModal() {
 }
 
 /* Creates the new modal HTML using the 'selectedUser's data object
- *
  * @param {object} selectedUser The user object whose data is used to create the modal
  */
+
 function createModal(selectedUser) {
 
     let cellNumber = formatCellPhone(selectedUser.cell);
@@ -241,19 +241,19 @@ function createModal(selectedUser) {
 
 /* Reformats the user's cell phone number 
  * Referred to https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
- *
  * @param {string} cellNumber The user's cell number to be reformatted
  */
+
 function formatCellPhone(cellNumber) {
     cellNumber = cellNumber.replace(/[^\d]+/g, '')
          .replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
     return cellNumber;
 }
 
-/* Reformats the user's date of birthy
- * 
+/* Reformats the user's date of birth
  * @param {string} birthday The user's birthday to be reformatted
  */
+
 function formatBirthday(birthday) {
     birthday = birthday.replace(/(\d{4})-(\d{2})-(\d{2}).+/, '$2/$3/$1');
     return birthday;
