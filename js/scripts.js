@@ -40,6 +40,7 @@ fetchData('https://randomuser.me/api/?nat=us&results=12')
         searchContainer.addEventListener('submit', (e) => {
             const searchValue = e.target[0].value.toLowerCase();
             if (searchValue === '') {
+                removeCards();
                 createCards(userArray);
                 isSearched = false;
             } else {
