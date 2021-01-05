@@ -44,6 +44,7 @@ fetchData('https://randomuser.me/api/?nat=us&results=12')
         // Add search functionality to create new user cards that match the search query
         // Searched data results are held in the 'searchResults' array
         searchContainer.addEventListener('submit', (e) => {
+            e.preventDefault();
             const searchValue = e.target[0].value.toLowerCase();
             if (searchValue === '') {
                 removeCards();
