@@ -6,6 +6,9 @@ let selectedUser;
 var modalContainer;
 let modalInfoContainer;
 let searchResults;
+var prevButton;
+var nextButton;
+var modalButtonContainer;
 let isSearched = false;
 
 // Add search form
@@ -34,6 +37,9 @@ fetchData('https://randomuser.me/api/?nat=us&results=12')
         userArray = data.results;
         createCards(userArray);
         initializeModal();
+        prevButton = document.querySelector('#modal-prev');
+        nextButton = document.querySelector('#modal-next');
+        modalButtonContainer = document.querySelector('.modal-btn-container');
 
         // Add search functionality to create new user cards that match the search query
         // Searched data results are held in the 'searchResults' array
@@ -70,6 +76,7 @@ fetchData('https://randomuser.me/api/?nat=us&results=12')
                 createModal(selectedUser);
                 modalInfoContainer = document.querySelector('.modal-info-container');
                 modalContainer.style.display = 'block';
+                maintainToggleButtons();
             }
         })
 
@@ -90,17 +97,22 @@ fetchData('https://randomuser.me/api/?nat=us&results=12')
                     } else {
                         toggleUser(getPreviousUser, userArray);
                     }
-                }
+                } 
+                maintainToggleButtons();
 
             // getNextUser if the 'next' button is clicked, and the current modal is not the last user card
             } else if (e.target.id === 'modal-next') {
                 if (isSearched ? (clickIndex < searchResults.length - 1) : (clickIndex < userArray.length - 1)) {
+                    nextButton.style.display = 'block';
                     if (isSearched) {
                         toggleUser(getNextUser, searchResults);
                     } else {
                         toggleUser(getNextUser, userArray);
                     }
+                } else {
+                    nextButton.style.display = 'none';
                 }
+                maintainToggleButtons();
             }
         });
     });
@@ -248,4 +260,22 @@ function formatCellPhone(cellNumber) {
 function formatBirthday(birthday) {
     birthday = birthday.replace(/(\d{4})-(\d{2})-(\d{2}).+/, '$2/$3/$1');
     return birthday;
+}
+
+/* Determines which toggle buttons ('Prev' or 'Next') should be visible based on the clickIndex */
+function maintainToggleButtons() {
+    modalButtonContainer.style.visibility = 'visible';
+    if (clickIndex > 0 &&
+        (isSearched ? (clickIndex < searchResults.length - 1) : (clickIndex < userArray.length - 1))) {
+        prevButton.style.display = 'block';
+        nextButton.style.display = 'block';
+    } else if (clickIndex > 0) {
+        prevButton.style.display = 'block';
+        nextButton.style.display = 'none';                
+    } else if ((isSearched ? (clickIndex < searchResults.length - 1) : (clickIndex < userArray.length - 1))) {
+        prevButton.style.display = 'none';
+        nextButton.style.display = 'block';  
+    } else {
+        modalButtonContainer.style.visibility = 'hidden';        
+    }
 }
